@@ -22,9 +22,9 @@ public class Parser implements Runnable{
      private List<String> uniquenessChecker(List<String> urls) {
         List<String> links = new ArrayList<>();
         for (String url : urls) {
-          if(!WebCrawler2.allUrls.contains(url)){
+          if(!WebCrawler.allUrls.contains(url)){
               links.add(url);
-              WebCrawler2.allUrls.add(url);
+              WebCrawler.allUrls.add(url);
           }
         }
         return links;
@@ -32,15 +32,15 @@ public class Parser implements Runnable{
     @Override
     public void run() {
         
-        while(WebCrawler2.countOfCrawledPages.get() < WebCrawler2.count){
+        while(WebCrawler.countOfCrawledPages.get() < WebCrawler.count){
             try {
-                Document doc = WebCrawler2.docs.take();
+                Document doc = WebCrawler.docs.take();
                 List<String> urls = this.uniquenessChecker(this.parse(doc));
                 
                 for(String url :urls){
-                    WebCrawler2.queue.put(url);
+                    WebCrawler.queue.put(url);
                 }
-                WebCrawler2.countOfCrawledPages.incrementAndGet();
+                WebCrawler.countOfCrawledPages.incrementAndGet();
             } catch (InterruptedException ex) {
                 System.err.println("error in parse!");
             }
