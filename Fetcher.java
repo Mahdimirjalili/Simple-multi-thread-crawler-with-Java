@@ -33,11 +33,11 @@ public class Fetcher implements Runnable {
                 this.sem.acquire();
                 file.write(data.getBytes());
                 System.out.println("url : " + url + " downloaded in " + (System.nanoTime() - start) / 1000_000_000 + "seconds");
-                WebCrawler2.successFullDownloadedDocs.incrementAndGet();
+                WebCrawler.successFullDownloadedDocs.incrementAndGet();
                 this.sem.release();
                 if (doc != null) {
                     try {
-                        WebCrawler2.docs.put(doc);
+                        WebCrawler.docs.put(doc);
                     } catch (InterruptedException ex) {
                         System.out.println("Error in putting doc in docs queue!");
                     }
@@ -48,7 +48,7 @@ public class Fetcher implements Runnable {
                 System.err.println(ex.getMessage());
             }
             
-            WebCrawler2.fetcherSem.release();
+            WebCrawler.fetcherSem.release();
             
         } catch (InterruptedException ex) {
             Logger.getLogger(Fetcher.class.getName()).log(Level.SEVERE, null, ex);
