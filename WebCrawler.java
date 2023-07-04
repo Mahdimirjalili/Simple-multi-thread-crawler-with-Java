@@ -21,7 +21,7 @@ public class WebCrawler {
     public static BlockingQueue<Document> docs;
     private final ExecutorService threadPool;
     public static Set<String> allUrls;
-    public static int count = 2000; //specify number of pages should be crawl
+    public static int count = 2000; //Specify the number of pages to crawl
     public static AtomicInteger countOfCrawledPages;
     public static Semaphore fetcherSem;
     public static Semaphore fileSem;
